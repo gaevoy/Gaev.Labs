@@ -52,8 +52,9 @@ public class Parser
         }
         else
         {
+            var name = Token;
             MoveToNextToken();
-            return new VariableNode(Token);
+            return new VariableNode(name);
         }
     }
 
