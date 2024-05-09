@@ -36,11 +36,8 @@ public class Parser
                 return ParseIfExpression();
             }
 
-            if (NumericOperatorNode.AllowedOperators.Contains(Token))
-                return ParseNumericOperatorExpression();
-
-            if (BooleanOperatorNode.AllowedOperators.Contains(Token))
-                return ParseBooleanOperatorExpression();
+            if (OperatorNode.AllowedOperators.Contains(Token))
+                return ParseOperatorNodeExpression();
 
             return ParseFunctionCallExpression();
         }
@@ -112,7 +109,7 @@ public class Parser
         return new IfNode(condition, thenBranch, elseBranch);
     }
 
-    private INode ParseNumericOperatorExpression()
+    private INode ParseOperatorNodeExpression()
     {
         var @operator = Token;
         MoveToNextToken();
@@ -123,16 +120,6 @@ public class Parser
         }
 
         MoveToNextToken();
-        return new NumericOperatorNode(@operator, operands.ToImmutableList());
-    }
-
-    private INode ParseBooleanOperatorExpression()
-    {
-        var @operator = Token;
-        MoveToNextToken();
-        var leftOperand = ParseExpression();
-        var rightOperand = ParseExpression();
-        MoveToNextToken();
-        return new BooleanOperatorNode(@operator, leftOperand, rightOperand);
+        return new OperatorNode(@operator, operands.ToImmutableList());
     }
 }

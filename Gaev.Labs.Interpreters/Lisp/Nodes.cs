@@ -19,41 +19,23 @@ public class VariableNode(string name) : INode
     public int Evaluate(Scope scope) => scope.GetVariable(name).Evaluate(scope);
 }
 
-public class NumericOperatorNode(string @operator, ImmutableList<INode> operands) : INode
+public class OperatorNode(string @operator, ImmutableList<INode> operands) : INode
 {
-    public static readonly string[] AllowedOperators = ["+", "-", "*", "/"];
+    public static readonly string[] AllowedOperators = ["+", "-", "*", "/", "<", ">"];
 
     public int Evaluate(Scope scope)
     {
-        var results = operands.Select(op => op.Evaluate(scope));
+        var results = operands.Select(op => op.Evaluate(scope)).ToList();
         return @operator switch
         {
             "+" => results.Sum(),
             "-" => results.Aggregate((a, b) => a - b),
             "*" => results.Aggregate(1, (a, b) => a * b),
             "/" => results.Aggregate((a, b) => a / b),
+            ">" => results.Zip(results.Skip(1), (a, b) => a > b).All(x => x) ? 1 : 0,
+            "<" => results.Zip(results.Skip(1), (a, b) => a < b).All(x => x) ? 1 : 0,
             _ => throw new Exception($"Unsupported operator {@operator}")
         };
-    }
-}
-
-public class BooleanOperatorNode(string @operator, INode leftOperand, INode rightOperand) : INode
-{
-    public static readonly string[] AllowedOperators = [">", "<", "==", "!="];
-
-    public int Evaluate(Scope scope)
-    {
-        var left = leftOperand.Evaluate(scope);
-        var right = rightOperand.Evaluate(scope);
-        var result = @operator switch
-        {
-            ">" => left > right,
-            "<" => left < right,
-            "==" => left == right,
-            "!=" => left != right,
-            _ => throw new Exception($"Unsupported operator {@operator}")
-        };
-        return result ? 1 : 0;
     }
 }
 
