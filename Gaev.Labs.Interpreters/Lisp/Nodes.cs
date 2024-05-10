@@ -21,7 +21,7 @@ public record VariableNode(string Name) : INode
 
 public record OperatorNode(string Operator, ImmutableList<INode> Operands) : INode
 {
-    public static readonly string[] AllowedOperators = ["+", "-", "*", "/", "<", ">"];
+    public static bool CanHandle(string @operator) => @operator is "+" or "-" or "*" or "/" or "<" or ">";
 
     public int Evaluate(IScope scope)
     {

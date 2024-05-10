@@ -12,7 +12,7 @@ public interface IParser
 
 public class Parser : IParser
 {
-    private List<string> _tokens;
+    private ImmutableList<string> _tokens = ImmutableList<string>.Empty;
     private int _position;
     private string Token => _tokens[_position];
 
@@ -20,7 +20,7 @@ public class Parser : IParser
     {
         _tokens = Regex.Matches(expression, @"[\(\)]|[^\s\(\)]+")
             .Select(m => m.Value)
-            .ToList();
+            .ToImmutableList();
         _position = 0;
         return ParseExpression();
     }
@@ -42,7 +42,7 @@ public class Parser : IParser
                 return ParseIfExpression();
             }
 
-            if (OperatorNode.AllowedOperators.Contains(Token))
+            if (OperatorNode.CanHandle(Token))
                 return ParseOperatorNodeExpression();
 
             return ParseFunctionCallExpression();
