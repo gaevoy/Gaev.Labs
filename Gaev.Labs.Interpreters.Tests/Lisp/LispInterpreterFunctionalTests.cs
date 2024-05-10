@@ -8,29 +8,29 @@ public class LispInterpreterFunctionalTests
     [Test]
     public void EvaluateLiterals()
     {
-        Assert.That(_interpreter.Evaluate("5"), Is.EqualTo(5));
+        _interpreter.Evaluate("5").Should().Be(5);
     }
 
     [Test]
     public void EvaluateOperations()
     {
-        Assert.That(_interpreter.Evaluate("(+ 2 3)"), Is.EqualTo(5));
-        Assert.That(_interpreter.Evaluate("(* 4 5)"), Is.EqualTo(20));
-        Assert.That(_interpreter.Evaluate("(* (+ 2 3) (- 5 2))"), Is.EqualTo(15));
+        _interpreter.Evaluate("(+ 2 3)").Should().Be(5);
+        _interpreter.Evaluate("(* 4 5)").Should().Be(20);
+        _interpreter.Evaluate("(* (+ 2 3) (- 5 2))").Should().Be(15);
     }
 
     [Test]
     public void EvaluateVariableDefinitionAndUsage()
     {
         _interpreter.Evaluate("(define a 10)");
-        Assert.That(_interpreter.Evaluate("(+ a 5)"), Is.EqualTo(15));
+        _interpreter.Evaluate("(+ a 5)").Should().Be(15);
     }
 
     [Test]
     public void EvaluateConditionalLogic()
     {
-        Assert.That(_interpreter.Evaluate("(if (> 10 5) (+ 1 1) (+ 2 2))"), Is.EqualTo(2));
-        Assert.That(_interpreter.Evaluate("(if (< 10 5) (+ 1 1) (+ 2 2))"), Is.EqualTo(4));
+        _interpreter.Evaluate("(if (> 10 5) (+ 1 1) (+ 2 2))").Should().Be(2);
+        _interpreter.Evaluate("(if (< 10 5) (+ 1 1) (+ 2 2))").Should().Be(4);
     }
 
     [Test]
@@ -38,14 +38,14 @@ public class LispInterpreterFunctionalTests
     {
         _interpreter.Evaluate("(define (add x y) (+ x y))");
         var actual = _interpreter.Evaluate("(add 3 4)");
-        Assert.That(actual, Is.EqualTo(7));
+        actual.Should().Be(7);
     }
 
     [Test]
     public void EvaluateFunctionWithConditional()
     {
         _interpreter.Evaluate("(define (check x) (if (> x 5) 1 0))");
-        Assert.That(_interpreter.Evaluate("(check 6)"), Is.EqualTo(1));
-        Assert.That(_interpreter.Evaluate("(check 5)"), Is.EqualTo(0));
+        _interpreter.Evaluate("(check 6)").Should().Be(1);
+        _interpreter.Evaluate("(check 5)").Should().Be(0);
     }
 }
