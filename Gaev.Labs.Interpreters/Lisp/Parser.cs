@@ -5,21 +5,27 @@ using System.Text.RegularExpressions;
 
 namespace Gaev.Labs.Interpreters.Lisp;
 
-public class Parser
+public interface IParser
 {
-    private readonly List<string> _tokens;
+    INode Parse(string expression);
+}
+
+public class Parser : IParser
+{
+    private List<string> _tokens;
     private int _position;
     private string Token => _tokens[_position];
 
-    public Parser(string input)
+    public INode Parse(string expression)
     {
-        _tokens = Regex.Matches(input, @"[\(\)]|[^\s\(\)]+")
+        _tokens = Regex.Matches(expression, @"[\(\)]|[^\s\(\)]+")
             .Select(m => m.Value)
             .ToList();
         _position = 0;
+        return ParseExpression();
     }
 
-    public INode ParseExpression()
+    private INode ParseExpression()
     {
         if (Token == "(")
         {

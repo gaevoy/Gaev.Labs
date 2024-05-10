@@ -1,13 +1,14 @@
 ﻿namespace Gaev.Labs.Interpreters.Lisp;
 
-public class LispInterpreter
+public class LispInterpreter(IScope globalScope, IParser parser)
 {
-    private IScope GlobalScope { get; } = new Scope();
+    public LispInterpreter() : this(new Scope(), new Parser())
+    {
+    }
 
     public int Evaluate(string expression)
     {
-        var parser = new Parser(expression);
-        var node = parser.ParseExpression();
-        return node.Evaluate(GlobalScope);
+        var node = parser.Parse(expression);
+        return node.Evaluate(globalScope);
     }
 }
