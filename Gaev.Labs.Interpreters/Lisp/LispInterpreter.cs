@@ -2,12 +2,12 @@
 
 public class LispInterpreter
 {
-    private readonly Scope _globalScope = new();
+    private IScope GlobalScope { get; } = new Scope();
 
     public int Evaluate(string expression)
     {
         var parser = new Parser(expression);
         var node = parser.ParseExpression();
-        return node.Evaluate(_globalScope);
+        return node.Evaluate(GlobalScope);
     }
 }

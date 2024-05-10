@@ -3,7 +3,15 @@ using System.Collections.Generic;
 
 namespace Gaev.Labs.Interpreters.Lisp;
 
-public class Scope
+public interface IScope
+{
+    void DefineVariable(VariableDefinitionNode variable);
+    VariableDefinitionNode GetVariable(string name);
+    void DefineFunction(FunctionDefinitionNode func);
+    FunctionDefinitionNode GetFunction(string name);
+}
+
+public class Scope : IScope
 {
     private readonly Dictionary<string, VariableDefinitionNode> _variables = new();
     private readonly Dictionary<string, FunctionDefinitionNode> _functions = new();
