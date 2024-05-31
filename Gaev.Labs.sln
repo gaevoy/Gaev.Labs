@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gaev.Labs.Interpreters", "Gaev.Labs.Interpreters\Gaev.Labs.Interpreters.csproj", "{5283C7ED-2A55-45FE-BBB8-16D868B020A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gaev.Labs", "Gaev.Labs\Gaev.Labs.csproj", "{5283C7ED-2A55-45FE-BBB8-16D868B020A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gaev.Labs.Interpreters.Tests", "Gaev.Labs.Interpreters.Tests\Gaev.Labs.Interpreters.Tests.csproj", "{A632A550-DEFB-4FCD-8E5B-740BCAA40BD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gaev.Labs.Tests", "Gaev.Labs.Tests\Gaev.Labs.Tests.csproj", "{A632A550-DEFB-4FCD-8E5B-740BCAA40BD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

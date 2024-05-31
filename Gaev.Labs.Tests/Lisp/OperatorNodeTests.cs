@@ -1,4 +1,6 @@
-﻿namespace Gaev.Labs.Interpreters.Tests.Lisp;
+﻿using Gaev.Labs.Lisp;
+
+namespace Gaev.Labs.Tests.Lisp;
 
 public class OperatorNodeTests
 {

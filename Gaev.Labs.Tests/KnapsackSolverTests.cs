@@ -2,7 +2,7 @@
 
 // ReSharper disable NotAccessedPositionalProperty.Global
 
-namespace Gaev.Labs.Interpreters.Tests;
+namespace Gaev.Labs.Tests;
 
 public class KnapsackSolverTests
 {

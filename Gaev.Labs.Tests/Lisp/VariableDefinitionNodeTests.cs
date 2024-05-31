@@ -1,6 +1,7 @@
-﻿using NUnit.Framework.Internal;
+﻿using Gaev.Labs.Lisp;
+using NUnit.Framework.Internal;
 
-namespace Gaev.Labs.Interpreters.Tests.Lisp;
+namespace Gaev.Labs.Tests.Lisp;
 
 public class VariableDefinitionNodeTests
 {
