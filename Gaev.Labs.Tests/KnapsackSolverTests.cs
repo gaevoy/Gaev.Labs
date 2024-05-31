@@ -11,7 +11,7 @@ public class KnapsackSolverTests
     [TestCase("3, 5, 7, 9, 2, 1", "5, 12, 8, 10, 3, 2", 12, 22)]
     [TestCase("1, 2, 4, 6, 3", "1, 4, 5, 6, 7", 8, 13)]
     [TestCase("6, 7", "10, 20", 5, 0)]
-    public void Solve(string weightsAsString, string valuesAsString, int capacity, int expectedValue)
+    public void Check(string weightsAsString, string valuesAsString, int capacity, int expectedValue)
     {
         // Given
         var weights = weightsAsString.Split(',').Select(int.Parse).ToArray();
@@ -23,6 +23,13 @@ public class KnapsackSolverTests
         // Then
         Console.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions { WriteIndented = true }));
         Assert.That(result?.TotalValue, Is.EqualTo(expectedValue));
+    }
+
+    record Node(int Weight, int Value, Node? Parent)
+    {
+        public readonly int TotalWeight = Weight + (Parent?.TotalWeight ?? 0);
+        public readonly int TotalValue = Value + (Parent?.TotalValue ?? 0);
+        public bool CanFit(int capacity) => TotalWeight <= capacity;
     }
 
     private static Node? SolveKnapsack(int[] weights, int[] values, int capacity)
@@ -43,12 +50,5 @@ public class KnapsackSolverTests
         }
 
         return nodes.MaxBy(e => e.TotalValue);
-    }
-
-    record Node(int Weight, int Value, Node? Parent)
-    {
-        public readonly int TotalWeight = Weight + (Parent?.TotalWeight ?? 0);
-        public readonly int TotalValue = Value + (Parent?.TotalValue ?? 0);
-        public bool CanFit(int capacity) => TotalWeight <= capacity;
     }
 }

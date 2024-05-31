@@ -8,7 +8,7 @@ public class CoinChangeSolverTests
     [TestCase("1, 2, 5", 11, 3)]
     [TestCase("25, 10, 5", 30, 2)]
     [TestCase("9, 6, 5, 1", 11, 2)]
-    public void Solve(string coinsAsString, int amount, int expectedNumberOfCoins)
+    public void Check(string coinsAsString, int amount, int expectedNumberOfCoins)
     {
         // Given
         var coins = coinsAsString.Split(',').Select(int.Parse).ToArray();
